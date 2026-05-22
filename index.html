@@ -1,0 +1,2210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crunch Fin — Crispy Yellow Croaker Snack</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,500;1,300&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cream: #F5EFE0;
+    --warm-white: #FAF7F0;
+    --teal: #1B4A52;
+    --teal-light: #2A6B75;
+    --gold: #C8A84B;
+    --gold-light: #E2C876;
+    --rust: #8B3A2A;
+    --amber: #C47B1A;
+    --dark: #1A1A18;
+    --text: #2C2C2A;
+    --text-muted: #7A7268;
+    --ink: #0D2B30;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Cormorant Garamond', serif;
+    background: var(--warm-white);
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  /* ─── NOISE TEXTURE ─── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.4;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 3rem;
+    background: rgba(245, 239, 224, 0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(200,168,75,0.2);
+  }
+
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--teal);
+    letter-spacing: 0.02em;
+    text-decoration: none;
+  }
+
+  .nav-logo span { color: var(--gold); }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--teal);
+    text-decoration: none;
+    opacity: 0.8;
+    transition: opacity 0.2s;
+  }
+
+  .nav-links a:hover { opacity: 1; color: var(--gold); }
+
+  .nav-cta {
+    background: var(--teal);
+    color: var(--gold) !important;
+    padding: 0.55rem 1.4rem;
+    border-radius: 2px;
+    opacity: 1 !important;
+  }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 8rem 4rem 5rem 5rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.8rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .hero-eyebrow::before {
+    content: '';
+    width: 40px;
+    height: 1px;
+    background: var(--gold);
+  }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3.5rem, 6vw, 6rem);
+    line-height: 1.0;
+    color: var(--ink);
+    font-weight: 700;
+    margin-bottom: 0.3rem;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--teal);
+  }
+
+  .hero-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.35rem;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--text-muted);
+    margin-bottom: 2.5rem;
+    line-height: 1.5;
+  }
+
+  .hero-desc {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--text);
+    max-width: 420px;
+    margin-bottom: 3rem;
+    font-weight: 300;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 1.2rem;
+    align-items: center;
+  }
+
+  .btn-primary {
+    background: var(--teal);
+    color: var(--cream);
+    padding: 1rem 2.4rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: background 0.3s, transform 0.2s;
+  }
+
+  .btn-primary:hover { background: var(--teal-light); transform: translateY(-1px); }
+
+  .btn-ghost {
+    color: var(--teal);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    border-bottom: 1px solid var(--gold);
+    padding-bottom: 2px;
+    transition: color 0.2s;
+  }
+
+  .btn-ghost:hover { color: var(--gold); }
+
+  .hero-right {
+    background: var(--teal);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-right::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 30% 70%, rgba(200,168,75,0.15) 0%, transparent 60%);
+  }
+
+  /* Large decorative fish circle */
+  .hero-fish-ring {
+    width: 420px;
+    height: 420px;
+    border: 1px solid rgba(200,168,75,0.3);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    animation: slowSpin 30s linear infinite;
+  }
+
+  @keyframes slowSpin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  .hero-fish-ring::before {
+    content: '';
+    position: absolute;
+    inset: 20px;
+    border: 1px solid rgba(200,168,75,0.15);
+    border-radius: 50%;
+  }
+
+  .hero-fish-svg {
+    animation: slowSpin 30s linear infinite reverse;
+  }
+
+  /* Floating text labels */
+  .hero-tag {
+    position: absolute;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(200,168,75,0.7);
+  }
+
+  .hero-tag-1 { top: 20%; left: 8%; }
+  .hero-tag-2 { bottom: 25%; right: 8%; }
+
+  /* ─── MARQUEE ─── */
+  .marquee-wrap {
+    background: var(--gold);
+    padding: 0.9rem 0;
+    overflow: hidden;
+  }
+
+  .marquee-track {
+    display: flex;
+    gap: 0;
+    animation: marquee 20s linear infinite;
+    white-space: nowrap;
+  }
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  .marquee-item {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink);
+    padding: 0 3rem;
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+  }
+
+  .marquee-dot {
+    width: 4px;
+    height: 4px;
+    background: var(--teal);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* ─── STORY ─── */
+  .story {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 70vh;
+  }
+
+  .story-image {
+    background: var(--cream);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .story-image::after {
+    content: '';
+    position: absolute;
+    bottom: 0; right: 0;
+    width: 200px; height: 200px;
+    background: var(--gold);
+    opacity: 0.08;
+    border-radius: 50%;
+    transform: translate(50%, 50%);
+  }
+
+  .bowl-illustration {
+    position: relative;
+    z-index: 1;
+  }
+
+  .story-content {
+    padding: 7rem 5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--gold);
+    opacity: 0.4;
+    max-width: 60px;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 3.5vw, 3.2rem);
+    line-height: 1.15;
+    color: var(--ink);
+    margin-bottom: 1.5rem;
+  }
+
+  .section-title em { color: var(--teal); font-style: italic; }
+
+  .section-body {
+    font-size: 1.1rem;
+    line-height: 1.9;
+    font-weight: 300;
+    color: var(--text);
+    margin-bottom: 1.2rem;
+  }
+
+  .stat-row {
+    display: flex;
+    gap: 3rem;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(200,168,75,0.25);
+  }
+
+  .stat { display: flex; flex-direction: column; gap: 0.3rem; }
+
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: var(--teal);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  /* ─── FLAVORS ─── */
+  .flavors {
+    background: var(--cream);
+    padding: 8rem 5rem;
+  }
+
+  .flavors-header {
+    text-align: center;
+    margin-bottom: 5rem;
+  }
+
+  .flavors-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .flavor-card {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    aspect-ratio: 3/4;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 2rem 1.8rem;
+    transition: transform 0.4s ease;
+  }
+
+  .flavor-card:hover { transform: scale(1.02); z-index: 2; }
+
+  .flavor-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 50%);
+    z-index: 1;
+  }
+
+  .flavor-bg { position: absolute; inset: 0; transition: transform 0.6s ease; }
+  .flavor-card:hover .flavor-bg { transform: scale(1.05); }
+
+  .flavor-bg-1 { background: linear-gradient(145deg, #1B4A52 0%, #0D2B30 100%); }
+  .flavor-bg-2 { background: linear-gradient(145deg, #6B2020 0%, #3D1010 100%); }
+  .flavor-bg-3 { background: linear-gradient(145deg, #C47B1A 0%, #8B5210 100%); }
+  .flavor-bg-4 { background: linear-gradient(145deg, #2A2520 0%, #1A1510 100%); }
+
+  .flavor-content { position: relative; z-index: 2; }
+
+  .flavor-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    color: rgba(255,255,255,0.45);
+    margin-bottom: 0.8rem;
+  }
+
+  .flavor-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.2;
+    margin-bottom: 0.4rem;
+  }
+
+  .flavor-sub {
+    font-size: 0.9rem;
+    font-style: italic;
+    color: var(--gold-light);
+    margin-bottom: 1rem;
+  }
+
+  .flavor-desc {
+    font-size: 0.88rem;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.5;
+    font-weight: 300;
+  }
+
+  .flavor-icons {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    z-index: 2;
+    font-size: 1.5rem;
+    opacity: 0.6;
+  }
+
+  /* Decorative flavor patterns */
+  .flavor-pattern {
+    position: absolute;
+    top: -20px; right: -20px;
+    width: 120px; height: 120px;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 50%;
+    z-index: 1;
+  }
+
+  .flavor-pattern::after {
+    content: '';
+    position: absolute;
+    top: 15px; left: 15px; right: 15px; bottom: 15px;
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 50%;
+  }
+
+  /* ─── HOW IT'S MADE ─── */
+  .process {
+    padding: 8rem 5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .process-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    margin-bottom: 6rem;
+    align-items: end;
+  }
+
+  .process-steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: rgba(200,168,75,0.15);
+  }
+
+  .process-step {
+    background: var(--warm-white);
+    padding: 2.5rem 2rem;
+    position: relative;
+  }
+
+  .step-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: rgba(200,168,75,0.2);
+    line-height: 1;
+    margin-bottom: 1.2rem;
+  }
+
+  .step-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    color: var(--teal);
+    margin-bottom: 0.7rem;
+    font-weight: 700;
+  }
+
+  .step-desc {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: var(--text-muted);
+    font-weight: 300;
+  }
+
+  .step-icon {
+    font-size: 1.8rem;
+    margin-bottom: 1.2rem;
+  }
+
+  /* ─── ASMR SECTION ─── */
+  .asmr {
+    background: var(--ink);
+    padding: 7rem 5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .asmr::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 50% 50%, rgba(200,168,75,0.1) 0%, transparent 70%);
+  }
+
+  .asmr-wave {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    margin-bottom: 3rem;
+  }
+
+  .wave-bar {
+    width: 3px;
+    border-radius: 2px;
+    background: var(--gold);
+    animation: wave 1.2s ease-in-out infinite;
+  }
+
+  .wave-bar:nth-child(1) { height: 16px; animation-delay: 0s; }
+  .wave-bar:nth-child(2) { height: 32px; animation-delay: 0.1s; }
+  .wave-bar:nth-child(3) { height: 48px; animation-delay: 0.2s; }
+  .wave-bar:nth-child(4) { height: 60px; animation-delay: 0.3s; }
+  .wave-bar:nth-child(5) { height: 72px; animation-delay: 0.4s; }
+  .wave-bar:nth-child(6) { height: 60px; animation-delay: 0.5s; }
+  .wave-bar:nth-child(7) { height: 48px; animation-delay: 0.6s; }
+  .wave-bar:nth-child(8) { height: 32px; animation-delay: 0.7s; }
+  .wave-bar:nth-child(9) { height: 16px; animation-delay: 0.8s; }
+
+  @keyframes wave {
+    0%, 100% { transform: scaleY(1); opacity: 0.6; }
+    50% { transform: scaleY(0.4); opacity: 1; }
+  }
+
+  .asmr-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 5vw, 5rem);
+    color: var(--cream);
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .asmr-title em { color: var(--gold); font-style: italic; }
+
+  .asmr-body {
+    font-size: 1.15rem;
+    color: rgba(245,239,224,0.6);
+    font-weight: 300;
+    max-width: 550px;
+    margin: 0 auto 3rem;
+    line-height: 1.8;
+    position: relative;
+    z-index: 1;
+  }
+
+  .asmr-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    background: rgba(200,168,75,0.15);
+    border: 1px solid rgba(200,168,75,0.4);
+    padding: 0.8rem 2rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ─── SHOP PREVIEW ─── */
+  .shop {
+    padding: 8rem 5rem;
+    background: var(--cream);
+  }
+
+  .shop-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 4rem;
+  }
+
+  .product-cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+  }
+
+  .product-card {
+    background: var(--warm-white);
+    padding: 3rem 2.5rem 2rem;
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+  }
+
+  .product-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 50px rgba(27,74,82,0.1);
+  }
+
+  .product-card-label {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.58rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    background: var(--teal);
+    color: var(--gold);
+    padding: 0.3rem 0.7rem;
+  }
+
+  .product-icon {
+    font-size: 3rem;
+    margin-bottom: 2rem;
+    display: block;
+    filter: grayscale(0);
+  }
+
+  .product-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    color: var(--ink);
+    margin-bottom: 0.4rem;
+  }
+
+  .product-type {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 1.2rem;
+  }
+
+  .product-desc {
+    font-size: 0.97rem;
+    line-height: 1.7;
+    color: var(--text);
+    font-weight: 300;
+    margin-bottom: 2rem;
+  }
+
+  .product-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(200,168,75,0.2);
+  }
+
+  .product-price {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    color: var(--teal);
+    font-weight: 700;
+  }
+
+  .add-btn {
+    background: var(--gold);
+    color: var(--ink);
+    border: none;
+    padding: 0.65rem 1.4rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+  }
+
+  .add-btn:hover { background: var(--gold-light); transform: translateY(-1px); }
+
+  .flavor-dot {
+    display: inline-block;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    margin-right: 0.4rem;
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--ink);
+    padding: 5rem;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 4rem;
+  }
+
+  .footer-brand-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--cream);
+    margin-bottom: 1rem;
+  }
+
+  .footer-brand-name span { color: var(--gold); }
+
+  .footer-tagline {
+    font-size: 0.95rem;
+    color: rgba(245,239,224,0.45);
+    font-weight: 300;
+    line-height: 1.8;
+    max-width: 280px;
+    margin-bottom: 2rem;
+  }
+
+  .footer-social {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .social-link {
+    width: 36px; height: 36px;
+    border: 1px solid rgba(200,168,75,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--gold);
+    text-decoration: none;
+    font-size: 0.8rem;
+    transition: background 0.2s;
+  }
+
+  .social-link:hover { background: rgba(200,168,75,0.15); }
+
+  .footer-col-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.63rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+  }
+
+  .footer-links { list-style: none; display: flex; flex-direction: column; gap: 0.8rem; }
+
+  .footer-links a {
+    color: rgba(245,239,224,0.5);
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 300;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover { color: var(--cream); }
+
+  .footer-bottom {
+    background: var(--dark);
+    padding: 1.5rem 5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-copy {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.12em;
+    color: rgba(245,239,224,0.3);
+  }
+
+  /* ─── SCROLL REVEAL ─── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+  .reveal-delay-4 { transition-delay: 0.4s; }
+
+  /* ─── CHINESE DECORATIVE ELEMENTS ─── */
+  .chinese-deco {
+    font-size: 4rem;
+    opacity: 0.05;
+    position: absolute;
+    color: var(--gold);
+    font-weight: 900;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .nav-cart-btn {
+    background: var(--gold);
+    color: var(--ink);
+    border: none;
+    padding: 0.45rem 1rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    border-radius: 2px;
+    transition: background 0.2s;
+  }
+  .nav-cart-btn:hover { background: var(--gold-light); }
+  .cart-count {
+    background: var(--teal);
+    color: var(--cream);
+    border-radius: 50%;
+    width: 18px; height: 18px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.6rem;
+    font-weight: bold;
+  }
+
+  /* ─── CART DRAWER ─── */
+  .cart-overlay {
+    position: fixed; inset: 0; background: rgba(13,43,48,0.5);
+    z-index: 999; opacity: 0; pointer-events: none;
+    transition: opacity 0.3s;
+  }
+  .cart-overlay.open { opacity: 1; pointer-events: all; }
+
+  .cart-drawer {
+    position: fixed; top: 0; right: 0; bottom: 0;
+    width: 420px; max-width: 100vw;
+    background: var(--warm-white);
+    z-index: 1000;
+    transform: translateX(100%);
+    transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+    display: flex; flex-direction: column;
+    box-shadow: -4px 0 40px rgba(0,0,0,0.15);
+  }
+  .cart-drawer.open { transform: translateX(0); }
+
+  .cart-header {
+    padding: 1.8rem 2rem 1.2rem;
+    border-bottom: 1px solid rgba(200,168,75,0.2);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .cart-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem; color: var(--ink); font-weight: 700;
+  }
+  .cart-close {
+    background: none; border: none; cursor: pointer;
+    font-size: 1.4rem; color: var(--text-muted); line-height: 1;
+    padding: 0.2rem;
+  }
+  .cart-close:hover { color: var(--ink); }
+
+  .cart-items {
+    flex: 1; overflow-y: auto; padding: 1.2rem 2rem;
+  }
+  .cart-item {
+    display: flex; align-items: center; gap: 1rem;
+    padding: 1rem 0; border-bottom: 1px solid rgba(200,168,75,0.15);
+  }
+  .cart-item-icon { font-size: 2rem; }
+  .cart-item-info { flex: 1; }
+  .cart-item-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem; color: var(--ink); margin-bottom: 0.2rem;
+  }
+  .cart-item-price {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem; color: var(--teal);
+  }
+  .cart-item-controls {
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+  .qty-btn {
+    width: 26px; height: 26px; border: 1px solid rgba(200,168,75,0.4);
+    background: none; cursor: pointer; font-size: 1rem;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--teal); transition: background 0.15s;
+  }
+  .qty-btn:hover { background: var(--cream); }
+  .qty-num {
+    font-family: 'DM Mono', monospace; font-size: 0.8rem;
+    min-width: 20px; text-align: center; color: var(--ink);
+  }
+  .cart-remove {
+    background: none; border: none; cursor: pointer;
+    color: var(--text-muted); font-size: 1rem; padding: 0.2rem;
+    margin-left: 0.3rem;
+  }
+  .cart-remove:hover { color: var(--rust); }
+
+  .cart-empty {
+    text-align: center; padding: 4rem 2rem;
+    color: var(--text-muted); font-style: italic; font-size: 1.05rem;
+  }
+
+  .cart-footer {
+    padding: 1.5rem 2rem 2rem;
+    border-top: 1px solid rgba(200,168,75,0.2);
+  }
+  .cart-subtotal {
+    display: flex; justify-content: space-between;
+    font-family: 'DM Mono', monospace; font-size: 0.75rem;
+    letter-spacing: 0.1em; color: var(--text-muted);
+    margin-bottom: 0.5rem;
+  }
+  .cart-total {
+    display: flex; justify-content: space-between; align-items: baseline;
+    margin-bottom: 1.5rem;
+  }
+  .cart-total-label {
+    font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--ink);
+  }
+  .cart-total-price {
+    font-family: 'Playfair Display', serif; font-size: 1.6rem;
+    color: var(--teal); font-weight: 700;
+  }
+  .checkout-btn {
+    width: 100%; background: var(--teal); color: var(--cream);
+    border: none; padding: 1.1rem; font-family: 'DM Mono', monospace;
+    font-size: 0.75rem; letter-spacing: 0.18em; text-transform: uppercase;
+    cursor: pointer; transition: background 0.2s;
+  }
+  .checkout-btn:hover { background: var(--teal-light); }
+  .checkout-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+  /* ─── CHECKOUT MODAL ─── */
+  .checkout-modal-overlay {
+    position: fixed; inset: 0; background: rgba(13,43,48,0.65);
+    z-index: 1100; opacity: 0; pointer-events: none;
+    transition: opacity 0.3s; display: flex; align-items: center; justify-content: center;
+    padding: 2rem;
+  }
+  .checkout-modal-overlay.open { opacity: 1; pointer-events: all; }
+  .checkout-modal {
+    background: var(--warm-white); width: 100%; max-width: 520px;
+    max-height: 90vh; overflow-y: auto;
+    padding: 2.5rem; position: relative;
+    transform: translateY(20px);
+    transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+  }
+  .checkout-modal-overlay.open .checkout-modal { transform: translateY(0); }
+  .checkout-modal-title {
+    font-family: 'Playfair Display', serif; font-size: 1.6rem;
+    color: var(--ink); margin-bottom: 0.4rem;
+  }
+  .checkout-modal-sub {
+    font-family: 'DM Mono', monospace; font-size: 0.65rem;
+    letter-spacing: 0.15em; color: var(--gold); text-transform: uppercase;
+    margin-bottom: 2rem;
+  }
+  .form-row {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;
+  }
+  .form-group {
+    display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 1rem;
+  }
+  .form-group.full { grid-column: 1 / -1; }
+  .form-label {
+    font-family: 'DM Mono', monospace; font-size: 0.6rem;
+    letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-muted);
+  }
+  .form-input {
+    border: 1px solid rgba(200,168,75,0.3); background: var(--cream);
+    padding: 0.7rem 0.9rem; font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem; color: var(--ink); outline: none;
+    transition: border-color 0.2s;
+  }
+  .form-input:focus { border-color: var(--teal); }
+  .form-section-label {
+    font-family: 'DM Mono', monospace; font-size: 0.62rem;
+    letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold);
+    margin: 1.5rem 0 0.8rem;
+    padding-bottom: 0.5rem; border-bottom: 1px solid rgba(200,168,75,0.2);
+  }
+  .order-summary {
+    background: var(--cream); padding: 1.2rem 1.4rem; margin-bottom: 1.5rem;
+  }
+  .order-summary-item {
+    display: flex; justify-content: space-between;
+    font-size: 0.92rem; color: var(--text); margin-bottom: 0.4rem;
+  }
+  .order-summary-total {
+    display: flex; justify-content: space-between; align-items: baseline;
+    border-top: 1px solid rgba(200,168,75,0.25); padding-top: 0.8rem; margin-top: 0.8rem;
+    font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--teal); font-weight: 700;
+  }
+  .place-order-btn {
+    width: 100%; background: var(--teal); color: var(--cream);
+    border: none; padding: 1.1rem; font-family: 'DM Mono', monospace;
+    font-size: 0.75rem; letter-spacing: 0.18em; text-transform: uppercase;
+    cursor: pointer; transition: background 0.2s; margin-top: 0.5rem;
+  }
+  .place-order-btn:hover { background: var(--teal-light); }
+  .modal-close-btn {
+    position: absolute; top: 1.2rem; right: 1.2rem;
+    background: none; border: none; cursor: pointer;
+    font-size: 1.3rem; color: var(--text-muted);
+  }
+  .modal-close-btn:hover { color: var(--ink); }
+
+  /* ─── SUCCESS STATE ─── */
+  .order-success {
+    text-align: center; padding: 3rem 2rem;
+  }
+  .order-success-icon { font-size: 4rem; margin-bottom: 1rem; }
+  .order-success-title {
+    font-family: 'Playfair Display', serif; font-size: 1.8rem;
+    color: var(--teal); margin-bottom: 0.8rem;
+  }
+  .order-success-msg {
+    font-size: 1.05rem; color: var(--text); font-weight: 300;
+    line-height: 1.7; margin-bottom: 2rem;
+  }
+
+  @media (max-width: 900px) {
+    .product-cards { grid-template-columns: 1fr 1fr; }
+    .cart-drawer { width: 100vw; }
+    .form-row { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 600px) {
+    .product-cards { grid-template-columns: 1fr; }
+  }
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; }
+    .hero-right { height: 50vh; }
+    .hero-left { padding: 6rem 2rem 3rem; }
+    .story { grid-template-columns: 1fr; }
+    .story-image { display: none; }
+    .story-content { padding: 4rem 2rem; }
+    .flavors { padding: 5rem 2rem; }
+    .flavors-grid { grid-template-columns: repeat(2, 1fr); }
+    .process { padding: 5rem 2rem; }
+    .process-header { grid-template-columns: 1fr; }
+    .process-steps { grid-template-columns: repeat(2, 1fr); }
+    .shop { padding: 5rem 2rem; }
+    .product-cards { grid-template-columns: 1fr; }
+    .asmr { padding: 5rem 2rem; }
+    footer { grid-template-columns: 1fr 1fr; padding: 4rem 2rem; gap: 2.5rem; }
+    .footer-bottom { padding: 1.5rem 2rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">CRUNCH <span>FIN</span></a>
+  <ul class="nav-links">
+    <li><a href="#story">Our Story</a></li>
+    <li><a href="#flavors">Flavors</a></li>
+    <li><a href="#craft">Craft</a></li>
+    <li><a href="#shop">Products</a></li>
+    <li><a href="#shop" class="nav-cta">Shop Now</a></li>
+    <li><button class="nav-cart-btn" id="cartToggle">🛒 Bag <span class="cart-count" id="cartCount" style="display:none;">0</span></button></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow reveal">Crispy Yellow Croaker Snack</div>
+    <h1 class="hero-title reveal reveal-delay-1">
+      Ancient<br><em>craft.</em><br>Bold crunch.
+    </h1>
+    <p class="hero-subtitle reveal reveal-delay-2">Chinese Fried Yellow Crock — reinvented.</p>
+    <p class="hero-desc reveal reveal-delay-3">
+      Sourced from the pristine Yellow Sea, hand-seasoned with time-honored spice traditions, then fried to an extraordinary crisp. Every bag is ASMR approved.
+    </p>
+    <div class="hero-actions reveal reveal-delay-4">
+      <a href="#shop" class="btn-primary">Shop All Flavors</a>
+      <a href="#story" class="btn-ghost">Our Story →</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <span class="chinese-deco" style="top:10%;left:10%;">鱼</span>
+    <span class="chinese-deco" style="bottom:15%;right:12%;font-size:3rem;">香脆</span>
+
+    <div class="hero-tag hero-tag-1">ASMR Crunch Approved</div>
+    <div class="hero-tag hero-tag-2">6oz · Resealable Pouch</div>
+
+    <div class="hero-fish-ring">
+      <div class="hero-fish-svg">
+        <svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Crown -->
+          <path d="M85 55 L90 45 L100 52 L110 45 L115 55 Z" stroke="#C8A84B" stroke-width="1.5" fill="none"/>
+          <!-- Fish body -->
+          <ellipse cx="100" cy="105" rx="38" ry="22" stroke="#C8A84B" stroke-width="1.5" fill="none"/>
+          <!-- Tail -->
+          <path d="M138 105 L158 88 L152 105 L158 122 Z" stroke="#C8A84B" stroke-width="1.5" fill="none"/>
+          <!-- Eye -->
+          <circle cx="82" cy="100" r="4" stroke="#C8A84B" stroke-width="1.5" fill="none"/>
+          <circle cx="82" cy="100" r="1.5" fill="#C8A84B"/>
+          <!-- Fins -->
+          <path d="M95 83 Q100 70 112 78" stroke="#C8A84B" stroke-width="1.2" fill="none"/>
+          <path d="M95 127 Q100 140 112 132" stroke="#C8A84B" stroke-width="1.2" fill="none"/>
+          <!-- Sound waves -->
+          <path d="M48 92 Q40 105 48 118" stroke="#C8A84B" stroke-width="1.2" fill="none" opacity="0.6"/>
+          <path d="M38 86 Q26 105 38 124" stroke="#C8A84B" stroke-width="1" fill="none" opacity="0.4"/>
+          <path d="M58 96 Q52 105 58 114" stroke="#C8A84B" stroke-width="1.2" fill="none" opacity="0.8"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <!-- repeated for seamless loop -->
+    <span class="marquee-item">ASMR Crunch Approved <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Yellow Sea Croaker <span class="marquee-dot"></span></span>
+    <span class="marquee-item">4 Bold Flavors <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Chinese Fried Tradition <span class="marquee-dot"></span></span>
+    <span class="marquee-item">No Artificial Preservatives <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Resealable Pouch <span class="marquee-dot"></span></span>
+    <span class="marquee-item">ASMR Crunch Approved <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Yellow Sea Croaker <span class="marquee-dot"></span></span>
+    <span class="marquee-item">4 Bold Flavors <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Chinese Fried Tradition <span class="marquee-dot"></span></span>
+    <span class="marquee-item">No Artificial Preservatives <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Resealable Pouch <span class="marquee-dot"></span></span>
+  </div>
+</div>
+
+<!-- STORY -->
+<section class="story" id="story">
+  <div class="story-image">
+    <div class="bowl-illustration">
+      <svg width="320" height="280" viewBox="0 0 320 280" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Bowl -->
+        <ellipse cx="160" cy="200" rx="120" ry="30" fill="#1B4A52" opacity="0.12"/>
+        <path d="M60 160 Q60 230 160 240 Q260 230 260 160 Z" fill="#F0E8D0" stroke="#C8A84B" stroke-width="1.5"/>
+        <ellipse cx="160" cy="160" rx="100" ry="25" fill="#E8DFC0" stroke="#C8A84B" stroke-width="1.5"/>
+        <!-- Congee surface -->
+        <ellipse cx="160" cy="160" rx="96" ry="22" fill="#F5EFE0"/>
+        <!-- Toppings: fish pieces -->
+        <ellipse cx="145" cy="155" rx="18" ry="8" fill="#C8A84B" opacity="0.8" transform="rotate(-15 145 155)"/>
+        <ellipse cx="178" cy="162" rx="15" ry="7" fill="#B8903B" opacity="0.9" transform="rotate(10 178 162)"/>
+        <!-- Green onion -->
+        <path d="M130 148 Q145 145 155 150" stroke="#4A7C4E" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M165 153 Q178 149 190 155" stroke="#4A7C4E" stroke-width="2" stroke-linecap="round"/>
+        <!-- Sesame dots -->
+        <circle cx="152" cy="170" r="2" fill="#8B7355" opacity="0.7"/>
+        <circle cx="165" cy="167" r="1.5" fill="#8B7355" opacity="0.7"/>
+        <circle cx="170" cy="172" r="2" fill="#8B7355" opacity="0.5"/>
+        <!-- Bowl rim highlight -->
+        <path d="M62 160 Q160 138 258 160" stroke="white" stroke-width="2" opacity="0.4"/>
+        <!-- Chopsticks -->
+        <line x1="210" y1="100" x2="240" y2="200" stroke="#8B5E3C" stroke-width="3" stroke-linecap="round"/>
+        <line x1="225" y1="98" x2="248" y2="195" stroke="#A0714A" stroke-width="2.5" stroke-linecap="round"/>
+      </svg>
+    </div>
+  </div>
+
+  <div class="story-content" id="story">
+    <div class="section-label reveal">Our Heritage</div>
+    <h2 class="section-title reveal reveal-delay-1">Born from <em>tradition,</em><br>made for today.</h2>
+    <p class="section-body reveal reveal-delay-2">
+      The Yellow Croaker has been a celebrated fish along China's coast for centuries — prized for its delicate white flesh and extraordinary flavor when fried whole. Crunch Fin captures that same soul in a modern, shareable snack.
+    </p>
+    <p class="section-body reveal reveal-delay-3">
+      Every fish is carefully seasoned, slow-marinated, and fried to an unforgettable crisp. Pair it with congee for breakfast, or eat it straight from the bag — no rules.
+    </p>
+    <div class="stat-row reveal reveal-delay-4">
+      <div class="stat">
+        <span class="stat-num">4</span>
+        <span class="stat-label">Bold flavors</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">100%</span>
+        <span class="stat-label">Yellow Croaker</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">0</span>
+        <span class="stat-label">Artificial add-ins</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FLAVORS -->
+<section class="flavors" id="flavors">
+  <div class="flavors-header">
+    <div class="section-label reveal" style="justify-content:center;">The Collection</div>
+    <h2 class="section-title reveal reveal-delay-1" style="text-align:center;">Four flavors.<br><em>Infinite crunch.</em></h2>
+  </div>
+
+  <div class="flavors-grid">
+    <!-- Original -->
+    <div class="flavor-card reveal">
+      <div class="flavor-bg flavor-bg-1"></div>
+      <div class="flavor-pattern"></div>
+      <div class="flavor-icons">🌊</div>
+      <div class="flavor-content">
+        <div class="flavor-num">01</div>
+        <div class="flavor-name">Original Sea Salt</div>
+        <div class="flavor-sub">Pure & Oceanic</div>
+        <div class="flavor-desc">The classic. Clean brine of the sea, letting the croaker's natural umami shine through every crispy bite.</div>
+      </div>
+    </div>
+
+    <!-- Sichuan -->
+    <div class="flavor-card reveal reveal-delay-1">
+      <div class="flavor-bg flavor-bg-2"></div>
+      <div class="flavor-pattern"></div>
+      <div class="flavor-icons">🌶️</div>
+      <div class="flavor-content">
+        <div class="flavor-num">02</div>
+        <div class="flavor-name">Sichuan Mala</div>
+        <div class="flavor-sub">Spicy & Numbing</div>
+        <div class="flavor-desc">Authentic Sichuan peppercorn and dried chili deliver the iconic mala tingle — hot, bold, and addictive.</div>
+      </div>
+    </div>
+
+    <!-- Egg Yolk -->
+    <div class="flavor-card reveal reveal-delay-2">
+      <div class="flavor-bg flavor-bg-3"></div>
+      <div class="flavor-pattern"></div>
+      <div class="flavor-icons">🥚</div>
+      <div class="flavor-content">
+        <div class="flavor-num">03</div>
+        <div class="flavor-name">Salted Egg Yolk</div>
+        <div class="flavor-sub">Creamy & Smokey</div>
+        <div class="flavor-desc">Rich, velvety salted egg yolk coating — a beloved Hong Kong classic now fused with your new favorite crunch.</div>
+      </div>
+    </div>
+
+    <!-- Truffle -->
+    <div class="flavor-card reveal reveal-delay-3">
+      <div class="flavor-bg flavor-bg-4"></div>
+      <div class="flavor-pattern"></div>
+      <div class="flavor-icons">🍄</div>
+      <div class="flavor-content">
+        <div class="flavor-num">04</div>
+        <div class="flavor-name">Truffle Pepper</div>
+        <div class="flavor-sub">Earthy & Luxurious</div>
+        <div class="flavor-desc">Black truffle earthiness meets cracked white pepper in a refined, umami-forward flavor that surprises every time.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process" id="craft">
+  <div class="process-header">
+    <div>
+      <div class="section-label reveal">Our Craft</div>
+      <h2 class="section-title reveal reveal-delay-1">The art behind<br>every <em>crunch.</em></h2>
+    </div>
+    <div>
+      <p class="section-body reveal reveal-delay-2">
+        From Yellow Sea to resealable pouch — each step is deliberate. No shortcuts. No compromises. Just the honest craft of a great fried fish snack, elevated.
+      </p>
+    </div>
+  </div>
+
+  <div class="process-steps">
+    <div class="process-step reveal">
+      <div class="step-num">01</div>
+      <div class="step-icon">🎣</div>
+      <div class="step-title">Sourced Fresh</div>
+      <div class="step-desc">Wild Yellow Croaker from the East China Sea, selected for size, freshness, and flavor profile.</div>
+    </div>
+    <div class="process-step reveal reveal-delay-1">
+      <div class="step-num">02</div>
+      <div class="step-icon">🧂</div>
+      <div class="step-title">Slow Marinated</div>
+      <div class="step-desc">Each fish is seasoned with our proprietary spice blend and marinated to allow deep flavor penetration.</div>
+    </div>
+    <div class="process-step reveal reveal-delay-2">
+      <div class="step-num">03</div>
+      <div class="step-icon">🔥</div>
+      <div class="step-title">Precision Fried</div>
+      <div class="step-desc">Fried at exact temperature for the ideal balance — crispy exterior, tender fish within. Bones become crunch.</div>
+    </div>
+    <div class="process-step reveal reveal-delay-3">
+      <div class="step-num">04</div>
+      <div class="step-icon">🌿</div>
+      <div class="step-title">Flavor Finished</div>
+      <div class="step-desc">Final seasoning applied hot, so every granule of flavor adheres to every ridge and fin of the fish.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ASMR -->
+<section class="asmr">
+  <div class="asmr-wave">
+    <div class="wave-bar"></div>
+    <div class="wave-bar"></div>
+    <div class="wave-bar"></div>
+    <div class="wave-bar"></div>
+    <div class="wave-bar"></div>
+    <div class="wave-bar"></div>
+    <div class="wave-bar"></div>
+    <div class="wave-bar"></div>
+    <div class="wave-bar"></div>
+  </div>
+  <h2 class="asmr-title reveal">The crunch<br>you can <em>hear.</em></h2>
+  <p class="asmr-body reveal reveal-delay-1">
+    We didn't set out to make an ASMR snack. But once you hear it, you can't unhear it. The snap of each fried fin is something special. Every bag is officially ASMR Crunch Approved.
+  </p>
+  <span class="asmr-badge reveal reveal-delay-2">
+    🎙 ASMR Crunch Approved — Official Certification
+  </span>
+</section>
+
+<!-- SHOP -->
+<section class="shop" id="shop">
+  <div class="shop-header">
+    <div>
+      <div class="section-label reveal">Shop Now</div>
+      <h2 class="section-title reveal reveal-delay-1">Pick your <em>crunch.</em></h2>
+    </div>
+  </div>
+
+  <div class="product-cards">
+    <div class="product-card reveal">
+      <span class="product-card-label">Best Seller</span>
+      <span class="product-icon">🌊</span>
+      <div class="product-name">Original Sea Salt</div>
+      <div class="product-type">
+        <span class="flavor-dot" style="background:#1B4A52;"></span>
+        Crispy Yellow Croaker · 6oz
+      </div>
+      <div class="product-desc">The purest expression of Crunch Fin — clean, oceanic, and impossible to put down. Your gateway crunch.</div>
+      <div class="product-footer">
+        <span class="product-price">$9.99</span>
+        <button class="add-btn" data-name="Original Sea Salt" data-price="9.99" data-icon="🌊">Add to Bag</button>
+      </div>
+    </div>
+
+    <div class="product-card reveal reveal-delay-1">
+      <span class="product-card-label" style="background:#6B2020;">🌶 Spicy</span>
+      <span class="product-icon">🌶️</span>
+      <div class="product-name">Sichuan Mala</div>
+      <div class="product-type">
+        <span class="flavor-dot" style="background:#8B3A2A;"></span>
+        Crispy Yellow Croaker · 6oz
+      </div>
+      <div class="product-desc">Not for the faint of heart. Sichuan peppercorn and red chili create the iconic mala numbing heat.</div>
+      <div class="product-footer">
+        <span class="product-price">$9.99</span>
+        <button class="add-btn" data-name="Sichuan Mala" data-price="9.99" data-icon="🌶️">Add to Bag</button>
+      </div>
+    </div>
+
+    <div class="product-card reveal reveal-delay-2">
+      <span class="product-card-label" style="background:#C47B1A;color:#1A1A18;">New</span>
+      <span class="product-icon">🥚</span>
+      <div class="product-name">Salted Egg Yolk</div>
+      <div class="product-type">
+        <span class="flavor-dot" style="background:#C47B1A;"></span>
+        Crispy Yellow Croaker · 6oz
+      </div>
+      <div class="product-desc">Rich, velvety salted egg yolk coating — a beloved Hong Kong classic fused with your new favorite crunch.</div>
+      <div class="product-footer">
+        <span class="product-price">$9.99</span>
+        <button class="add-btn" data-name="Salted Egg Yolk" data-price="9.99" data-icon="🥚">Add to Bag</button>
+      </div>
+    </div>
+
+    <div class="product-card reveal reveal-delay-3">
+      <span class="product-card-label" style="background:#2A2520;color:var(--gold);">Premium</span>
+      <span class="product-icon">🍄</span>
+      <div class="product-name">Truffle Pepper</div>
+      <div class="product-type">
+        <span class="flavor-dot" style="background:#2A2520;"></span>
+        Crispy Yellow Croaker · 6oz
+      </div>
+      <div class="product-desc">Black truffle earthiness meets cracked white pepper in a refined, umami-forward flavor that surprises every time.</div>
+      <div class="product-footer">
+        <span class="product-price">$9.99</span>
+        <button class="add-btn" data-name="Truffle Pepper" data-price="9.99" data-icon="🍄">Add to Bag</button>
+      </div>
+    </div>
+
+    <div class="product-card reveal reveal-delay-4" style="grid-column: 1 / -1; max-width: 480px; margin: 0 auto; width: 100%;">
+      <span class="product-card-label" style="background:var(--teal);color:var(--gold);">Best Value</span>
+      <span class="product-icon">🏆</span>
+      <div class="product-name">Flavor Variety Pack</div>
+      <div class="product-type">
+        <span class="flavor-dot" style="background:linear-gradient(90deg,#1B4A52,#8B3A2A);"></span>
+        All 4 Flavors · 4×3oz
+      </div>
+      <div class="product-desc">Can't choose? Don't. Get all four flavors in one shareable sampler pack — perfect for snack night.</div>
+      <div class="product-footer">
+        <span class="product-price">$29.99</span>
+        <button class="add-btn" style="background:var(--teal);color:var(--gold);" data-name="Flavor Variety Pack" data-price="29.99" data-icon="🏆">Add to Bag</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-brand-name">CRUNCH <span>FIN</span></div>
+    <p class="footer-tagline">A Chinese-inspired crispy fish snack rooted in tradition, crafted for the modern snacker. From the Yellow Sea to your hands.</p>
+    <div class="footer-social">
+      <a href="#" class="social-link">ig</a>
+      <a href="#" class="social-link">tk</a>
+      <a href="#" class="social-link">yt</a>
+    </div>
+  </div>
+
+  <div>
+    <div class="footer-col-title">Shop</div>
+    <ul class="footer-links">
+      <li><a href="#">Original Sea Salt</a></li>
+      <li><a href="#">Sichuan Mala</a></li>
+      <li><a href="#">Salted Egg Yolk</a></li>
+      <li><a href="#">Truffle Pepper</a></li>
+      <li><a href="#">Variety Pack</a></li>
+    </ul>
+  </div>
+
+  <div>
+    <div class="footer-col-title">Company</div>
+    <ul class="footer-links">
+      <li><a href="#story">Our Story</a></li>
+    </ul>
+  </div>
+
+  <div>
+    <div class="footer-col-title">Help</div>
+    <ul class="footer-links">
+      <li><a href="#" onclick="showPage('shipping'); return false;">Shipping &amp; Returns</a></li>
+      <li><a href="#" onclick="showPage('faq'); return false;">FAQ</a></li>
+      <li><a href="#" onclick="showPage('contact'); return false;">Contact Us</a></li>
+      <li><a href="#" onclick="showPage('nutrition'); return false;">Nutrition Info</a></li>
+    </ul>
+  </div>
+</footer>
+<div class="footer-bottom">
+  <span class="footer-copy">© 2024 Crunch Fin. All rights reserved. Crispy Yellow Croaker Snack.</span>
+  <span class="footer-copy">Made with craft · Inspired by China</span>
+</div>
+
+<!-- CART DRAWER -->
+<div class="cart-overlay" id="cartOverlay"></div>
+<div class="cart-drawer" id="cartDrawer">
+  <div class="cart-header">
+    <span class="cart-title">Your Bag</span>
+    <button class="cart-close" id="cartClose">✕</button>
+  </div>
+  <div class="cart-items" id="cartItems">
+    <div class="cart-empty">Your bag is empty.<br>Add some crunch!</div>
+  </div>
+  <div class="cart-footer" id="cartFooter" style="display:none;">
+    <div class="cart-subtotal">
+      <span>SUBTOTAL</span><span id="cartSubtotal">$0.00</span>
+    </div>
+    <div class="cart-subtotal">
+      <span>SHIPPING</span><span>Calculated at checkout</span>
+    </div>
+    <div class="cart-total">
+      <span class="cart-total-label">Estimated Total</span>
+      <span class="cart-total-price" id="cartTotal">$0.00</span>
+    </div>
+    <button class="checkout-btn" id="checkoutBtn">Proceed to Checkout</button>
+  </div>
+</div>
+
+<!-- CHECKOUT MODAL -->
+<div class="checkout-modal-overlay" id="checkoutModal">
+  <div class="checkout-modal">
+    <button class="modal-close-btn" id="checkoutModalClose">✕</button>
+    <div id="checkoutForm">
+      <div class="checkout-modal-title">Checkout</div>
+      <div class="checkout-modal-sub">Secure · SSL Encrypted</div>
+
+      <div class="form-section-label">Contact</div>
+      <div class="form-group">
+        <label class="form-label">Email</label>
+        <input class="form-input" type="email" id="email" placeholder="you@example.com">
+      </div>
+
+      <div class="form-section-label">Shipping Address</div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">First Name</label>
+          <input class="form-input" type="text" id="firstName" placeholder="First">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Last Name</label>
+          <input class="form-input" type="text" id="lastName" placeholder="Last">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Address</label>
+        <input class="form-input" type="text" id="address" placeholder="123 Main St">
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">City</label>
+          <input class="form-input" type="text" id="city" placeholder="City">
+        </div>
+        <div class="form-group">
+          <label class="form-label">ZIP</label>
+          <input class="form-input" type="text" id="zip" placeholder="00000">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">State</label>
+          <input class="form-input" type="text" id="state" placeholder="CA">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Country</label>
+          <input class="form-input" type="text" id="country" value="United States">
+        </div>
+      </div>
+
+      <div class="form-section-label">Payment</div>
+      <div class="form-group">
+        <label class="form-label">Card Number</label>
+        <input class="form-input" type="text" id="card" placeholder="•••• •••• •••• ••••" maxlength="19">
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Expiry</label>
+          <input class="form-input" type="text" id="expiry" placeholder="MM / YY" maxlength="7">
+        </div>
+        <div class="form-group">
+          <label class="form-label">CVV</label>
+          <input class="form-input" type="text" id="cvv" placeholder="•••" maxlength="4">
+        </div>
+      </div>
+
+      <div class="form-section-label">Order Summary</div>
+      <div class="order-summary" id="orderSummary"></div>
+
+      <button class="place-order-btn" id="placeOrderBtn">Place Order</button>
+    </div>
+
+    <div class="order-success" id="orderSuccess" style="display:none;">
+      <div class="order-success-icon">🎉</div>
+      <div class="order-success-title">Order Placed!</div>
+      <div class="order-success-msg">Thank you for your order. You'll receive a confirmation email shortly. Get ready for the crunch.</div>
+      <button class="place-order-btn" id="continueShopping">Continue Shopping</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => observer.observe(el));
+
+  // Hero immediate reveal
+  document.querySelectorAll('.hero .reveal').forEach((el, i) => {
+    setTimeout(() => el.classList.add('visible'), 200 + i * 120);
+  });
+
+  // ─── CART SYSTEM ───
+  let cart = [];
+
+  function getTotal() {
+    return cart.reduce((sum, item) => sum + item.price * item.qty, 0);
+  }
+
+  function renderCart() {
+    const itemsEl = document.getElementById('cartItems');
+    const footerEl = document.getElementById('cartFooter');
+    const countEl = document.getElementById('cartCount');
+    const totalCount = cart.reduce((s, i) => s + i.qty, 0);
+
+    // Update count badge
+    if (totalCount > 0) {
+      countEl.style.display = 'inline-flex';
+      countEl.textContent = totalCount;
+    } else {
+      countEl.style.display = 'none';
+    }
+
+    if (cart.length === 0) {
+      itemsEl.innerHTML = '<div class="cart-empty">Your bag is empty.<br>Add some crunch!</div>';
+      footerEl.style.display = 'none';
+      return;
+    }
+
+    footerEl.style.display = 'block';
+    const total = getTotal();
+    document.getElementById('cartSubtotal').textContent = '$' + total.toFixed(2);
+    document.getElementById('cartTotal').textContent = '$' + total.toFixed(2);
+
+    itemsEl.innerHTML = cart.map((item, idx) => `
+      <div class="cart-item">
+        <span class="cart-item-icon">${item.icon}</span>
+        <div class="cart-item-info">
+          <div class="cart-item-name">${item.name}</div>
+          <div class="cart-item-price">$${(item.price * item.qty).toFixed(2)}</div>
+        </div>
+        <div class="cart-item-controls">
+          <button class="qty-btn" onclick="changeQty(${idx}, -1)">−</button>
+          <span class="qty-num">${item.qty}</span>
+          <button class="qty-btn" onclick="changeQty(${idx}, 1)">+</button>
+          <button class="cart-remove" onclick="removeItem(${idx})">✕</button>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  function changeQty(idx, delta) {
+    cart[idx].qty = Math.max(0, cart[idx].qty + delta);
+    if (cart[idx].qty === 0) cart.splice(idx, 1);
+    renderCart();
+  }
+
+  function removeItem(idx) {
+    cart.splice(idx, 1);
+    renderCart();
+  }
+
+  function openCart() {
+    document.getElementById('cartDrawer').classList.add('open');
+    document.getElementById('cartOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeCart() {
+    document.getElementById('cartDrawer').classList.remove('open');
+    document.getElementById('cartOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  document.getElementById('cartToggle').addEventListener('click', openCart);
+  document.getElementById('cartClose').addEventListener('click', closeCart);
+  document.getElementById('cartOverlay').addEventListener('click', closeCart);
+
+  // Add to bag buttons
+  document.querySelectorAll('.add-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      const name = this.dataset.name;
+      const price = parseFloat(this.dataset.price);
+      const icon = this.dataset.icon;
+      const existing = cart.find(i => i.name === name);
+      if (existing) {
+        existing.qty++;
+      } else {
+        cart.push({ name, price, icon, qty: 1 });
+      }
+      renderCart();
+      // Button feedback
+      const orig = this.textContent;
+      this.textContent = '✓ Added!';
+      const origBg = this.style.background;
+      const origColor = this.style.color;
+      this.style.background = 'var(--teal)';
+      this.style.color = 'var(--gold)';
+      setTimeout(() => {
+        this.textContent = orig;
+        this.style.background = origBg;
+        this.style.color = origColor;
+      }, 1500);
+      // Flash cart badge
+      openCart();
+    });
+  });
+
+  // ─── CHECKOUT ───
+  document.getElementById('checkoutBtn').addEventListener('click', () => {
+    // Build order summary
+    const summaryEl = document.getElementById('orderSummary');
+    summaryEl.innerHTML = cart.map(item => `
+      <div class="order-summary-item">
+        <span>${item.icon} ${item.name} × ${item.qty}</span>
+        <span>$${(item.price * item.qty).toFixed(2)}</span>
+      </div>
+    `).join('') + `
+      <div class="order-summary-total">
+        <span>Total</span>
+        <span>$${getTotal().toFixed(2)}</span>
+      </div>
+    `;
+    closeCart();
+    document.getElementById('orderSuccess').style.display = 'none';
+    document.getElementById('checkoutForm').style.display = 'block';
+    document.getElementById('checkoutModal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  });
+
+  function closeCheckout() {
+    document.getElementById('checkoutModal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  document.getElementById('checkoutModalClose').addEventListener('click', closeCheckout);
+
+  // Card number formatting
+  document.getElementById('card').addEventListener('input', function() {
+    let v = this.value.replace(/\D/g, '').slice(0, 16);
+    this.value = v.replace(/(.{4})/g, '$1 ').trim();
+  });
+  // Expiry formatting
+  document.getElementById('expiry').addEventListener('input', function() {
+    let v = this.value.replace(/\D/g, '').slice(0, 4);
+    if (v.length >= 3) v = v.slice(0,2) + ' / ' + v.slice(2);
+    this.value = v;
+  });
+
+  document.getElementById('placeOrderBtn').addEventListener('click', () => {
+    // Simple validation
+    const required = ['email','firstName','lastName','address','city','zip','state','card','expiry','cvv'];
+    const missing = required.filter(id => !document.getElementById(id).value.trim());
+    if (missing.length) {
+      alert('Please fill in all required fields.');
+      return;
+    }
+    // Show success
+    document.getElementById('checkoutForm').style.display = 'none';
+    document.getElementById('orderSuccess').style.display = 'block';
+    cart = [];
+    renderCart();
+  });
+
+  document.getElementById('continueShopping').addEventListener('click', () => {
+    closeCheckout();
+  });
+
+  // ─── INFO PAGES ───
+  function showPage(id) {
+    document.getElementById('pageOverlay').classList.add('open');
+    document.querySelectorAll('.info-page').forEach(p => p.style.display = 'none');
+    document.getElementById('page-' + id).style.display = 'block';
+    document.body.style.overflow = 'hidden';
+  }
+  function closePage() {
+    document.getElementById('pageOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  // Attach after DOM is fully loaded
+  window.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('pageOverlayClose').addEventListener('click', closePage);
+  });
+</script>
+
+<!-- INFO PAGE OVERLAY -->
+<style>
+  .page-overlay {
+    position: fixed; inset: 0; z-index: 1200;
+    background: var(--warm-white);
+    transform: translateY(100%);
+    transition: transform 0.4s cubic-bezier(0.4,0,0.2,1);
+    overflow-y: auto;
+  }
+  .page-overlay.open { transform: translateY(0); }
+  .page-overlay-nav {
+    position: sticky; top: 0;
+    background: rgba(245,239,224,0.95); backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(200,168,75,0.2);
+    padding: 1.2rem 3rem;
+    display: flex; justify-content: space-between; align-items: center;
+    z-index: 10;
+  }
+  .page-overlay-logo {
+    font-family: 'Playfair Display', serif; font-size: 1.2rem;
+    font-weight: 700; color: var(--teal);
+  }
+  .page-overlay-logo span { color: var(--gold); }
+  .page-back-btn {
+    background: none; border: none; cursor: pointer;
+    font-family: 'DM Mono', monospace; font-size: 0.68rem;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--teal); display: flex; align-items: center; gap: 0.5rem;
+  }
+  .page-back-btn:hover { color: var(--gold); }
+  .info-page { max-width: 780px; margin: 0 auto; padding: 4rem 3rem 6rem; }
+  .info-page-eyebrow {
+    font-family: 'DM Mono', monospace; font-size: 0.65rem;
+    letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold);
+    margin-bottom: 1rem; display: flex; align-items: center; gap: 0.8rem;
+  }
+  .info-page-eyebrow::after { content: ''; flex: 1; height: 1px; background: var(--gold); opacity: 0.3; max-width: 60px; }
+  .info-page-title {
+    font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 3rem);
+    color: var(--ink); line-height: 1.15; margin-bottom: 3rem;
+  }
+  .info-page-title em { color: var(--teal); font-style: italic; }
+  .info-section { margin-bottom: 3rem; }
+  .info-section-title {
+    font-family: 'Playfair Display', serif; font-size: 1.25rem;
+    color: var(--teal); margin-bottom: 0.8rem; font-weight: 700;
+  }
+  .info-body {
+    font-size: 1.05rem; line-height: 1.85; font-weight: 300;
+    color: var(--text); margin-bottom: 0.8rem;
+  }
+  .info-divider {
+    border: none; border-top: 1px solid rgba(200,168,75,0.25);
+    margin: 2.5rem 0;
+  }
+  .info-table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+  .info-table th {
+    font-family: 'DM Mono', monospace; font-size: 0.62rem;
+    letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold);
+    text-align: left; padding: 0.6rem 0.8rem;
+    border-bottom: 1px solid rgba(200,168,75,0.3);
+  }
+  .info-table td {
+    padding: 0.7rem 0.8rem; font-size: 0.97rem; color: var(--text);
+    border-bottom: 1px solid rgba(200,168,75,0.12); font-weight: 300;
+  }
+  .info-table tr:last-child td { border-bottom: none; }
+  .info-table td:last-child { color: var(--text-muted); }
+  .faq-item { margin-bottom: 1.8rem; }
+  .faq-q {
+    font-family: 'Playfair Display', serif; font-size: 1.1rem;
+    color: var(--ink); margin-bottom: 0.5rem; font-weight: 700;
+  }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 1.5rem; }
+  .contact-card {
+    background: var(--cream); padding: 2rem;
+    border: 1px solid rgba(200,168,75,0.2);
+  }
+  .contact-card-title {
+    font-family: 'Playfair Display', serif; font-size: 1.05rem;
+    color: var(--teal); margin-bottom: 0.4rem; font-weight: 700;
+  }
+  .contact-card-detail { font-size: 0.95rem; color: var(--text); font-weight: 300; line-height: 1.6; }
+  .contact-form-group { margin-bottom: 1.2rem; }
+  .contact-form-label {
+    font-family: 'DM Mono', monospace; font-size: 0.6rem;
+    letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-muted);
+    display: block; margin-bottom: 0.4rem;
+  }
+  .contact-form-input, .contact-form-textarea {
+    width: 100%; border: 1px solid rgba(200,168,75,0.3); background: var(--cream);
+    padding: 0.75rem 1rem; font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem; color: var(--ink); outline: none; transition: border-color 0.2s;
+  }
+  .contact-form-input:focus, .contact-form-textarea:focus { border-color: var(--teal); }
+  .contact-form-textarea { resize: vertical; min-height: 130px; }
+  .contact-submit-btn {
+    background: var(--teal); color: var(--cream); border: none;
+    padding: 0.9rem 2.5rem; font-family: 'DM Mono', monospace;
+    font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase;
+    cursor: pointer; transition: background 0.2s;
+  }
+  .contact-submit-btn:hover { background: var(--teal-light); }
+  .nutrition-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; margin-top: 1rem; }
+  .nutrition-card {
+    background: var(--cream); padding: 1.5rem 1.8rem;
+    border: 1px solid rgba(200,168,75,0.2);
+  }
+  .nutrition-card-flavor {
+    font-family: 'Playfair Display', serif; font-size: 1.05rem;
+    color: var(--teal); margin-bottom: 1rem; font-weight: 700;
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+  .nutrition-row {
+    display: flex; justify-content: space-between;
+    font-size: 0.9rem; color: var(--text); padding: 0.35rem 0;
+    border-bottom: 1px solid rgba(200,168,75,0.12);
+  }
+  .nutrition-row:last-child { border-bottom: none; }
+  .nutrition-row span:last-child { font-family: 'DM Mono', monospace; font-size: 0.85rem; color: var(--text-muted); }
+  .allergen-note {
+    background: rgba(200,168,75,0.1); border-left: 3px solid var(--gold);
+    padding: 1rem 1.4rem; font-size: 0.95rem; color: var(--text);
+    line-height: 1.7; font-weight: 300; margin-top: 2rem;
+  }
+  @media (max-width: 700px) {
+    .info-page { padding: 2rem 1.5rem 5rem; }
+    .contact-grid { grid-template-columns: 1fr; }
+    .nutrition-grid { grid-template-columns: 1fr; }
+    .page-overlay-nav { padding: 1rem 1.5rem; }
+  }
+</style>
+
+<div class="page-overlay" id="pageOverlay">
+  <div class="page-overlay-nav">
+    <div class="page-overlay-logo">CRUNCH <span>FIN</span></div>
+    <button class="page-back-btn" id="pageOverlayClose">← Back to home</button>
+  </div>
+
+  <!-- SHIPPING & RETURNS -->
+  <div class="info-page" id="page-shipping" style="display:none;">
+    <div class="info-page-eyebrow">Help Center</div>
+    <h1 class="info-page-title">Shipping &amp; <em>Returns</em></h1>
+
+    <div class="info-section">
+      <div class="info-section-title">Shipping</div>
+      <p class="info-body">We ship across the continental United States. All orders are processed and shipped within 1–2 business days via standard ground shipping. Once your order ships, you'll receive a tracking number via email so you can follow your package every step of the way.</p>
+      <p class="info-body">Delivery typically takes 5–7 business days from the ship date. A flat shipping rate is calculated at checkout based on your location.</p>
+    </div>
+
+    <hr class="info-divider">
+
+    <div class="info-section">
+      <div class="info-section-title">International Shipping</div>
+      <p class="info-body">We currently ship to Canada and select countries in Asia. International shipping rates and delivery times vary by destination and are calculated at checkout. Please note that import duties and taxes may apply and are the responsibility of the customer.</p>
+    </div>
+
+    <hr class="info-divider">
+
+    <div class="info-section">
+      <div class="info-section-title">Returns &amp; Exchanges</div>
+      <p class="info-body">Your satisfaction is our priority. If you're not happy with your order for any reason, we'll make it right.</p>
+      <p class="info-body">Since Crunch Fin is a food product, we are unable to accept returns of opened packages for health and safety reasons. However, if your order arrives damaged, incorrect, or you experience a quality issue, please contact us within <strong>14 days</strong> of delivery and we'll send a replacement or issue a full refund — no return required.</p>
+      <p class="info-body">For unopened products, we accept returns within 30 days of purchase. Items must be in their original, sealed condition. Return shipping is the customer's responsibility unless the return is due to our error.</p>
+    </div>
+
+    <hr class="info-divider">
+
+    <div class="info-section">
+      <div class="info-section-title">Damaged or Missing Orders</div>
+      <p class="info-body">If your package is damaged in transit or arrives with missing items, please take a photo and email it to <strong>support@crunchfin.com</strong> within 14 days. We'll resolve it quickly — usually within 1–2 business days.</p>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="info-page" id="page-faq" style="display:none;">
+    <div class="info-page-eyebrow">Help Center</div>
+    <h1 class="info-page-title">Frequently Asked <em>Questions</em></h1>
+
+    <div class="info-section">
+      <div class="info-section-title">About the Product</div>
+
+      <div class="faq-item">
+        <div class="faq-q">What exactly is a Yellow Croaker?</div>
+        <p class="info-body">Yellow Croaker (大黄鱼, Dàhuángyú) is a prized fish native to the East China Sea, beloved in Chinese cuisine for its delicate white flesh and distinctive rich flavor. When fried whole at the right temperature, the bones become completely edible and crunchy — that's where Crunch Fin's signature texture comes from.</p>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">Are the bones safe to eat?</div>
+        <p class="info-body">Yes! This is one of the most common questions we get. Our precision frying process renders the small bones completely crispy and safe to eat — they're actually the best part. The bones are what give Crunch Fin its unmistakable satisfying crunch. Larger spine bones may still require care, but our production process ensures consistent, snackable results.</p>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">Are Crunch Fin snacks gluten-free?</div>
+        <p class="info-body">Our Original Sea Salt flavor is gluten-free. The Sichuan Mala, Salted Egg Yolk, and Truffle Pepper flavors contain soy sauce and may not be suitable for those with gluten intolerance. All products are produced in a facility that also processes wheat. Please check the Nutrition Info page for full allergen details.</p>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">How spicy is the Sichuan Mala flavor?</div>
+        <p class="info-body">We'd rate it a solid 7 out of 10. The heat comes primarily from dried chili, but the Sichuan peppercorn adds a mouth-numbing (mala) sensation that's more complex than pure heat. If you enjoy Korean buldak or spicy ramen, you'll handle it well. If you're new to mala, have a drink nearby.</p>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">How long do the snacks stay fresh?</div>
+        <p class="info-body">Each resealable pouch has a shelf life of 12 months from the production date (see the bottom of the bag). Once opened, we recommend consuming within 2–3 weeks for peak crunch. Store in a cool, dry place away from direct sunlight.</p>
+      </div>
+    </div>
+
+    <hr class="info-divider">
+
+    <div class="info-section">
+      <div class="info-section-title">Orders &amp; Shipping</div>
+
+      <div class="faq-item">
+        <div class="faq-q">How do I track my order?</div>
+        <p class="info-body">Once your order ships, you'll receive an email with a tracking number and a link to follow your package. Orders typically ship within 1–2 business days of being placed.</p>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">Can I change or cancel my order?</div>
+        <p class="info-body">We process orders quickly! If you need to make a change or cancellation, email us at support@crunchfin.com within 2 hours of placing your order and we'll do our best to help. Once an order has shipped, we're unable to make changes.</p>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">Do you offer bulk or wholesale pricing?</div>
+        <p class="info-body">Yes! For orders of 24+ packs or wholesale inquiries, please reach out to us at wholesale@crunchfin.com and our team will get back to you within 2 business days with pricing and options.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTACT US -->
+  <div class="info-page" id="page-contact" style="display:none;">
+    <div class="info-page-eyebrow">Get in Touch</div>
+    <h1 class="info-page-title">Contact <em>Us</em></h1>
+    <p class="info-body">We're a small team with big crunch energy. Whether you have a question about an order, a wholesale inquiry, or just want to tell us how much you love the Sichuan Mala, we'd love to hear from you.</p>
+
+    <div class="contact-grid">
+      <div class="contact-card">
+        <div class="contact-card-title">Order Support</div>
+        <div class="contact-card-detail">Questions about your order, tracking, or returns.<br><br><strong>support@crunchfin.com</strong><br>Response within 24 hours</div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-card-title">Wholesale &amp; Retail</div>
+        <div class="contact-card-detail">Interested in carrying Crunch Fin in your store or restaurant?<br><br><strong>wholesale@crunchfin.com</strong><br>Response within 2 business days</div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-card-title">Press &amp; Partnerships</div>
+        <div class="contact-card-detail">Media kits, collaboration inquiries, and influencer partnerships.<br><br><strong>hello@crunchfin.com</strong><br>Response within 3 business days</div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-card-title">Headquarters</div>
+        <div class="contact-card-detail">Crunch Fin<br>Los Angeles, CA<br>United States<br><br>Mon–Fri, 9am–5pm PT</div>
+      </div>
+    </div>
+
+    <hr class="info-divider">
+
+    <div class="info-section-title" style="margin-bottom:1.2rem;">Send Us a Message</div>
+    <div class="contact-form-group">
+      <label class="contact-form-label">Your Name</label>
+      <input class="contact-form-input" type="text" placeholder="First and last name">
+    </div>
+    <div class="contact-form-group">
+      <label class="contact-form-label">Email Address</label>
+      <input class="contact-form-input" type="email" placeholder="you@example.com">
+    </div>
+    <div class="contact-form-group">
+      <label class="contact-form-label">Subject</label>
+      <input class="contact-form-input" type="text" placeholder="What's this about?">
+    </div>
+    <div class="contact-form-group">
+      <label class="contact-form-label">Message</label>
+      <textarea class="contact-form-textarea" placeholder="Tell us what's on your mind…"></textarea>
+    </div>
+    <button class="contact-submit-btn" onclick="this.textContent='Message Sent!'; this.style.background='var(--teal-light)'; setTimeout(()=>{this.textContent='Send Message';this.style.background='';},3000);">Send Message</button>
+  </div>
+
+  <!-- NUTRITION INFO -->
+  <div class="info-page" id="page-nutrition" style="display:none;">
+    <div class="info-page-eyebrow">What's Inside</div>
+    <h1 class="info-page-title">Nutrition <em>Information</em></h1>
+    <p class="info-body">All nutrition facts are per serving (1 oz / ~28g). Each full-size bag is 6oz and contains approximately 6 servings.</p>
+
+    <div class="nutrition-grid">
+      <div class="nutrition-card">
+        <div class="nutrition-card-flavor">Original Sea Salt</div>
+        <div class="nutrition-row"><span>Calories</span><span>130</span></div>
+        <div class="nutrition-row"><span>Total Fat</span><span>7g</span></div>
+        <div class="nutrition-row"><span>Saturated Fat</span><span>1g</span></div>
+        <div class="nutrition-row"><span>Trans Fat</span><span>0g</span></div>
+        <div class="nutrition-row"><span>Cholesterol</span><span>30mg</span></div>
+        <div class="nutrition-row"><span>Sodium</span><span>310mg</span></div>
+        <div class="nutrition-row"><span>Total Carbohydrate</span><span>8g</span></div>
+        <div class="nutrition-row"><span>Dietary Fiber</span><span>0g</span></div>
+        <div class="nutrition-row"><span>Total Sugars</span><span>0g</span></div>
+        <div class="nutrition-row"><span>Protein</span><span>11g</span></div>
+        <div class="nutrition-row"><span>Calcium</span><span>4% DV</span></div>
+        <div class="nutrition-row"><span>Iron</span><span>6% DV</span></div>
+      </div>
+
+      <div class="nutrition-card">
+        <div class="nutrition-card-flavor">Sichuan Mala</div>
+        <div class="nutrition-row"><span>Calories</span><span>140</span></div>
+        <div class="nutrition-row"><span>Total Fat</span><span>8g</span></div>
+        <div class="nutrition-row"><span>Saturated Fat</span><span>1.5g</span></div>
+        <div class="nutrition-row"><span>Trans Fat</span><span>0g</span></div>
+        <div class="nutrition-row"><span>Cholesterol</span><span>30mg</span></div>
+        <div class="nutrition-row"><span>Sodium</span><span>380mg</span></div>
+        <div class="nutrition-row"><span>Total Carbohydrate</span><span>9g</span></div>
+        <div class="nutrition-row"><span>Dietary Fiber</span><span>1g</span></div>
+        <div class="nutrition-row"><span>Total Sugars</span><span>1g</span></div>
+        <div class="nutrition-row"><span>Protein</span><span>10g</span></div>
+        <div class="nutrition-row"><span>Calcium</span><span>4% DV</span></div>
+        <div class="nutrition-row"><span>Iron</span><span>6% DV</span></div>
+      </div>
+
+      <div class="nutrition-card">
+        <div class="nutrition-card-flavor">Salted Egg Yolk</div>
+        <div class="nutrition-row"><span>Calories</span><span>155</span></div>
+        <div class="nutrition-row"><span>Total Fat</span><span>9g</span></div>
+        <div class="nutrition-row"><span>Saturated Fat</span><span>2.5g</span></div>
+        <div class="nutrition-row"><span>Trans Fat</span><span>0g</span></div>
+        <div class="nutrition-row"><span>Cholesterol</span><span>55mg</span></div>
+        <div class="nutrition-row"><span>Sodium</span><span>420mg</span></div>
+        <div class="nutrition-row"><span>Total Carbohydrate</span><span>10g</span></div>
+        <div class="nutrition-row"><span>Dietary Fiber</span><span>0g</span></div>
+        <div class="nutrition-row"><span>Total Sugars</span><span>2g</span></div>
+        <div class="nutrition-row"><span>Protein</span><span>10g</span></div>
+        <div class="nutrition-row"><span>Calcium</span><span>6% DV</span></div>
+        <div class="nutrition-row"><span>Iron</span><span>6% DV</span></div>
+      </div>
+
+      <div class="nutrition-card">
+        <div class="nutrition-card-flavor">Truffle Pepper</div>
+        <div class="nutrition-row"><span>Calories</span><span>135</span></div>
+        <div class="nutrition-row"><span>Total Fat</span><span>7g</span></div>
+        <div class="nutrition-row"><span>Saturated Fat</span><span>1g</span></div>
+        <div class="nutrition-row"><span>Trans Fat</span><span>0g</span></div>
+        <div class="nutrition-row"><span>Cholesterol</span><span>30mg</span></div>
+        <div class="nutrition-row"><span>Sodium</span><span>290mg</span></div>
+        <div class="nutrition-row"><span>Total Carbohydrate</span><span>8g</span></div>
+        <div class="nutrition-row"><span>Dietary Fiber</span><span>0g</span></div>
+        <div class="nutrition-row"><span>Total Sugars</span><span>0g</span></div>
+        <div class="nutrition-row"><span>Protein</span><span>11g</span></div>
+        <div class="nutrition-row"><span>Calcium</span><span>4% DV</span></div>
+        <div class="nutrition-row"><span>Iron</span><span>6% DV</span></div>
+      </div>
+    </div>
+
+    <div class="allergen-note">
+      <strong>Allergen Information:</strong> All Crunch Fin products contain <strong>fish (Yellow Croaker)</strong>. Sichuan Mala, Salted Egg Yolk, and Truffle Pepper flavors contain <strong>soy</strong> and <strong>eggs</strong>. Salted Egg Yolk contains <strong>egg</strong>. All products are produced in a facility that handles <strong>wheat, tree nuts, and shellfish</strong>. Not suitable for those with severe fish allergies. If you have questions about specific ingredients, contact us at support@crunchfin.com.
+    </div>
+
+    <hr class="info-divider">
+
+    <div class="info-section">
+      <div class="info-section-title">Ingredients</div>
+      <p class="info-body"><strong>Original Sea Salt:</strong> Yellow Croaker (fish), frying oil (non-GMO canola), sea salt, rice flour, black pepper.</p>
+      <p class="info-body"><strong>Sichuan Mala:</strong> Yellow Croaker (fish), frying oil (non-GMO canola), Sichuan peppercorn, dried red chili, soy sauce (water, soybeans, wheat, salt), rice flour, sugar, garlic powder.</p>
+      <p class="info-body"><strong>Salted Egg Yolk:</strong> Yellow Croaker (fish), frying oil (non-GMO canola), salted duck egg yolk, rice flour, butter, curry leaf powder, salt, sugar.</p>
+      <p class="info-body"><strong>Truffle Pepper:</strong> Yellow Croaker (fish), frying oil (non-GMO canola), black truffle powder, white pepper, rice flour, sea salt, yeast extract.</p>
+    </div>
+  </div>
+</div>
+</body>
+</html>
